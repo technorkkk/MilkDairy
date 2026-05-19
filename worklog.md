@@ -1,42 +1,28 @@
-# Milk Dairy Management PWA - Work Log
+# Milk Dairy PWA - Worklog
 
 ---
 Task ID: 1
 Agent: Main Agent
-Task: Complete Milk Dairy Management PWA Build
+Task: Fix bugs - Customers not showing in delivery page, dark mode not working, API errors
 
 Work Log:
-- Initialized fullstack dev environment
-- Created Prisma schema with SQLite (with PostgreSQL version for deployment)
-- Pushed schema and seeded database with sample data
-- Created lib/db.ts Prisma singleton
-- Built 14 API routes covering all CRUD operations
-- Built Zustand store with auto-refresh after mutations
-- Created root layout with Google Fonts, ThemeProvider, and metadata
-- Created globals.css with complete design system (AMOLED dark + light mode)
-- Created bottom navigation component with glassmorphism
-- Built Home dashboard with animated counters and delivery sections
-- Built Customer list page with quick payment inline feature
-- Built Customer detail page with invoice preview (working X button)
-- Built Deliveries page with filters and add delivery sheet
-- Built Payments page with filters and add payment sheet
-- Built Invoices page with preview overlay
-- Built Settings page with dark mode toggle, milk prices, reset with confirmation
-- Added PWA support: manifest.json, custom icons, install prompt
-- Added animation components: scroll animations, typewriter, CSS 3D milk bottle
-- Generated custom assets: icons, SVGs, OG image
-- Fixed null reference error on home page
-- Committed and pushed to GitHub
+- Diagnosed root cause: "No business found" errors from API routes
+- Fixed `ensureBusiness()` to use upsert for race condition safety (db.ts)
+- Added `createdAt` field to Settings and MilkPrice models in Prisma schema
+- Created ThemeSync component for global dark mode sync with database
+- Fixed ThemeProvider: changed defaultTheme to "system", added storageKey
+- Fixed settings page: dark mode toggle now persists to database
+- Fixed delivery page: added retry logic for initial data fetch
+- Fixed delivery page: added empty customer state UI in Add Delivery sheet
+- Fixed payments page: added empty customer state UI in Add Payment sheet
+- Fixed home page: shows retry UI instead of infinite skeleton on API failure
+- Fixed milk-price API: added date serialization
+- Fixed settings API: added date serialization, better error handling
+- Ran `prisma db push` to sync schema changes
+- Verified build compiles successfully
+- Committed all changes
 
 Stage Summary:
-- 80 TypeScript/TSX source files
-- 14 API routes
-- 7 pages (Home, Customer List, Customer Detail, Deliveries, Payments, Invoices, Settings)
-- 5 custom components + 48 shadcn/ui components
-- 11 public assets (icons, SVGs, manifest, OG image)
-- All pages return HTTP 200
-- All API routes return HTTP 200
-- Critical data flow verified: balance computed server-side, updates after mutations
-- Duplicate delivery constraint returns 409
-- Invoice generation works correctly
-- GitHub repo: https://github.com/technorkkk/2nd-.git
+- All reported bugs fixed
+- Build passes successfully
+- GitHub push requires credentials (not available in sandbox)
