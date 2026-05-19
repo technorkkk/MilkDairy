@@ -54,7 +54,7 @@ export async function PUT(request: NextRequest) {
     const results = await Promise.all(
       prices.map((p) =>
         db.milkPrice.upsert({
-          where: { type: p.type },
+          where: { businessId_type: { businessId: business.id, type: p.type } },
           update: { price: p.price },
           create: {
             businessId: business.id,
