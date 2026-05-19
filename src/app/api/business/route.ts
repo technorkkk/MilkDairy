@@ -1,15 +1,9 @@
-import { db } from '@/lib/db'
+import { db, ensureBusiness } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    const business = await db.business.findFirst()
-    if (!business) {
-      return NextResponse.json(
-        { error: 'No business found' },
-        { status: 400 }
-      )
-    }
+    const business = await ensureBusiness()
     return NextResponse.json({
       id: business.id,
       name: business.name,
@@ -30,13 +24,7 @@ export async function PUT(request: NextRequest) {
     const body = await request.json()
     const { name, phone, address } = body
 
-    const business = await db.business.findFirst()
-    if (!business) {
-      return NextResponse.json(
-        { error: 'No business found' },
-        { status: 400 }
-      )
-    }
+    const business = await ensureBusiness()
 
     const updated = await db.business.update({
       where: { id: business.id },

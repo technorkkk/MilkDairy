@@ -1,15 +1,9 @@
-import { db } from '@/lib/db'
+import { db, ensureBusiness } from '@/lib/db'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    const business = await db.business.findFirst()
-    if (!business) {
-      return NextResponse.json(
-        { error: 'No business found' },
-        { status: 400 }
-      )
-    }
+    const business = await ensureBusiness()
 
     const settings = await db.settings.findUnique({
       where: { businessId: business.id },

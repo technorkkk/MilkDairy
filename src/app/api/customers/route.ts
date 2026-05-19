@@ -1,4 +1,4 @@
-import { db } from '@/lib/db'
+import { db, ensureBusiness } from '@/lib/db'
 import { NextRequest, NextResponse } from 'next/server'
 
 export async function GET() {
@@ -67,14 +67,7 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    // Get the first business (single business system)
-    const business = await db.business.findFirst()
-    if (!business) {
-      return NextResponse.json(
-        { error: 'No business found. Please set up business first.' },
-        { status: 400 }
-      )
-    }
+    const business = await ensureBusiness()
 
     const customer = await db.customer.create({
       data: {
